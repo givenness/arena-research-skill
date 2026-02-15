@@ -218,10 +218,6 @@ arena-research/
 
 Inspired by [x-research-skill](https://github.com/rohunvora/x-research-skill) by [@rohunvora](https://github.com/rohunvora).
 
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=givenness/arena-research-skill&type=Date)](https://star-history.com/#givenness/arena-research-skill&Date)
-
 ## License
 
 MIT
