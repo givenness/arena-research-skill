@@ -10,7 +10,7 @@ CLI tool for searching and browsing Are.na. Designed as a skill for Claude Code 
 
 ## Reference Implementation
 Follow the x-research skill at `~/.openclaw/workspace/skills/x-research/` as the reference for all patterns:
-- Token loading: `lib/api.ts` → env var first, `~/.config/env/global.env` fallback
+- Token loading: `lib/api.ts` → reads `process.env.ARENA_ACCESS_TOKEN`
 - Cache: `lib/cache.ts` → MD5 key, file-based JSON, configurable TTL
 - Formatters: `lib/format.ts` → terminal (default) and markdown
 - CLI: `arena-search.ts` → arg parsing, command dispatch, flag/option extraction
@@ -225,13 +225,11 @@ interface Source {
 ```
 
 ## Auth
-- `ARENA_ACCESS_TOKEN` loaded from:
-  1. Environment variable (highest priority)
-  2. `~/.config/env/global.env` file (regex: `ARENA_ACCESS_TOKEN=["']?([^"'\n]+)`)
+- `ARENA_ACCESS_TOKEN` read from `process.env.ARENA_ACCESS_TOKEN`
 - Bearer token in Authorization header: `Authorization: Bearer {token}`
 - Most endpoints work without auth (public content)
 - Auth needed for: `/v3/me`, private channels, `--scope my|following`
-- **Token loading must match x-research's `getToken()` pattern exactly** — see `lib/api.ts` in x-research
+- The skill does NOT read token files — it expects the env var to be set by the agent framework or shell environment
 
 ## Rate Limits
 - Guest: 30 req/min, Free: 120, Premium: 300, Supporter: 600

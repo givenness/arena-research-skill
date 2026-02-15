@@ -3,8 +3,6 @@
  * Uses Bearer token from env: ARENA_ACCESS_TOKEN
  */
 
-import { readFileSync } from "fs";
-
 const BASE = "https://api.are.na/v3";
 const RATE_DELAY_MS = 200;
 
@@ -124,18 +122,7 @@ export type SearchResult = Channel | Block | User;
 // --- Token ---
 
 const getToken = (): string | null => {
-  if (process.env.ARENA_ACCESS_TOKEN) return process.env.ARENA_ACCESS_TOKEN;
-
-  try {
-    const envFile = readFileSync(
-      `${process.env.HOME}/.config/env/global.env`,
-      "utf-8"
-    );
-    const match = envFile.match(/ARENA_ACCESS_TOKEN=["']?([^"'\n]+)/);
-    if (match) return match[1];
-  } catch {}
-
-  return null;
+  return process.env.ARENA_ACCESS_TOKEN || null;
 };
 
 export const requireToken = (): string => {

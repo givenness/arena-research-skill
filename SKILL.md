@@ -12,6 +12,16 @@ description: >
   (3) user wants to discover how people organize ideas around a topic — the channel
   structure IS the insight. NOT for: posting content, account management, or
   real-time/breaking news (use x-research for that).
+requires:
+  - bun
+env:
+  - ARENA_ACCESS_TOKEN
+includes:
+  - arena-search.ts
+  - lib/api.ts
+  - lib/cache.ts
+  - lib/format.ts
+  - references/arena-api.md
 ---
 
 # Arena Research
@@ -36,11 +46,16 @@ Are.na is a library, not a firehose. The value isn't just what people saved — 
 
 ## CLI Tool
 
-All commands run from this skill directory:
+All commands run from this skill's root directory (where `arena-search.ts` lives).
+
+Requires `ARENA_ACCESS_TOKEN` to be set in the environment. How the token gets
+loaded is up to the user/agent framework — the skill only reads `process.env.ARENA_ACCESS_TOKEN`.
+
+### First Run
 
 ```bash
-cd ~/clawd/skills/arena-research
-source ~/.config/env/global.env
+# Verify bun is available
+command -v bun >/dev/null || { echo "bun required: https://bun.sh"; exit 1; }
 ```
 
 ### Search

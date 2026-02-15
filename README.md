@@ -35,13 +35,9 @@ git clone https://github.com/givenness/arena-research-skill.git arena-research
 ## Setup
 
 1. **Are.na Personal Access Token** — Get one from [Are.na Settings](https://www.are.na/settings/personal-access-tokens)
-2. **Set the env var:**
+2. **Set the env var** — however your system manages secrets (shell profile, dotenvx, 1Password CLI, etc.):
    ```bash
    export ARENA_ACCESS_TOKEN="your-token-here"
-   ```
-   Or save it to `~/.config/env/global.env`:
-   ```
-   ARENA_ACCESS_TOKEN=your-token-here
    ```
 3. **Install Bun** (for CLI tooling): https://bun.sh
 
@@ -59,7 +55,7 @@ Most endpoints work with public content, but search requires a token.
 ### CLI commands
 
 ```bash
-cd skills/arena-research
+# Run from the skill's root directory (where arena-search.ts lives)
 ```
 
 #### Search
@@ -210,7 +206,7 @@ arena-research/
 
 ## Security
 
-**Token handling:** arena-search reads your token from the `ARENA_ACCESS_TOKEN` env var or `~/.config/env/global.env`. The token is never printed to stdout, but be aware:
+**Token handling:** arena-search reads your token from the `ARENA_ACCESS_TOKEN` environment variable. The token is never printed to stdout, but be aware:
 
 - **AI coding agents** (Claude Code, Codex, etc.) may log tool calls — including HTTP headers — in session transcripts. If you're running arena-search inside an agent session, your token could appear in those logs.
 - **Recommendations:**

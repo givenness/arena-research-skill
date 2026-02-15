@@ -27,4 +27,4 @@ Initial release.
 - Zero dependencies — pure Bun + TypeScript, no package.json
 - File-based cache with configurable TTL (15min default, 1hr for `--quick`)
 - 200ms inter-request delay for rate limit safety
-- Token loaded from `ARENA_ACCESS_TOKEN` env var or `~/.config/env/global.env`
+- Token loaded from `ARENA_ACCESS_TOKEN` environment variable
