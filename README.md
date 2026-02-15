@@ -4,11 +4,12 @@ Are.na research agent for [Claude Code](https://code.claude.com) and [OpenClaw](
 
 ## What it does
 
-Wraps the Are.na API into a fast CLI so your AI agent (or you) can search for curated collections, browse channel contents, follow block connections across channels, and discover how people organize ideas.
+Wraps the Are.na API into a fast CLI so your AI agent (or you) can search for curated collections, browse channel contents, follow block connections across channels, and discover how people organize ideas. When used by an agent, it follows a research loop — decompose a question into searches, explore the most promising channels, follow the connection graph to discover adjacent ideas, identify key curators, and synthesize everything into a sourced briefing.
 
 - **Search** across channels, blocks, and users with type filtering
 - **Browse** channel contents with sorting and type filters
 - **Graph traversal** — find which channels a block appears in, or which channels share content
+- **Research briefs** — agent synthesizes findings into themed briefings with channels, curators, and linked resources
 - **Quick mode** for fast, cached lookups
 - **User profiles** — explore a curator's channels
 - **Cache** to avoid redundant API calls (15min default, 1hr in quick mode)
@@ -169,6 +170,19 @@ bun run arena-search.ts cache clear
 bun run arena-search.ts search "tools for thought" --quick
 bun run arena-search.ts search "brutalist web design" --quick
 ```
+
+## Research Briefs
+
+When you ask Claude to research a topic on Are.na, it doesn't just run a single search. It follows a multi-step research loop defined in `SKILL.md`:
+
+1. **Decompose** the question into 3-5 search queries from different angles (direct terms, adjacent concepts, practitioner language)
+2. **Search and assess** — run each query, identify channels with real depth (50+ items), spot recurring curators
+3. **Explore top channels** — fetch contents, filter for links and text blocks
+4. **Follow the connection graph** — check which channels a high-signal block appears in, find channels that share content with ones you're exploring
+5. **Identify key curators** — users who appear repeatedly get their profiles explored
+6. **Synthesize** — group findings by theme into a briefing with sourced channels, notable content, curators, and connected territory
+
+The output is a markdown briefing saved to `~/clawd/drafts/`. Example: asking Claude to research "community radio and internet broadcasting" produced a briefing with 8 themes, 15+ explored channels, 500+ scanned blocks, and 8 identified curators — all from CLI calls.
 
 ## How search works
 
